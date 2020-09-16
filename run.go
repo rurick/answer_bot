@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
@@ -9,17 +10,24 @@ import (
 //Run - новый поток обработчика
 func Run(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 	var (
-		chatID int64
+		chatID   int64
+		text     string
+		userName string
 	)
 	if update.Message != nil {
 		chatID = update.Message.Chat.ID
+		userName = update.Message.From.UserName
+		text = update.Message.Text
 	}
 	if update.CallbackQuery != nil {
 		chatID = update.CallbackQuery.Message.Chat.ID
+		userName = update.CallbackQuery.Message.From.UserName
+		text = update.CallbackQuery.Data
 	}
 
 	if update.Message != nil {
 		//Проверка команд
+		log.Printf("Запрос: %s от https://tg.me/%s", text, userName)
 		if update.Message.Command() == "start" {
 			pageStart(update, chatID, bot)
 		} else {
