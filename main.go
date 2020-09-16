@@ -49,7 +49,7 @@ func main() {
 		log.Panic(err)
 	}
 	bot.Debug = false
-	log.Println("Авторизация в Telegram акаунтом @", bot.Self.UserName)
+	log.Println("Авторизация в Telegram акаунтом @" + bot.Self.UserName)
 
 	// u - структура с конфигом для получения апдейтов
 	u := tgbotapi.NewUpdate(0)
